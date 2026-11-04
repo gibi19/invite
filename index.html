@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Behanan's Double Celebration - Housewarming & Baptism</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Playfair Display, Inter & Great Vibes -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti for celebrations -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                        script: ['"Great Vibes"', 'cursive']
+                    },
+                    colors: {
+                        ice: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            900: '#0369a1'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Enhanced Live Animated Blue & White Aurora Background with glowing mesh */
+        .live-bg {
+            background: radial-gradient(circle at 15% 20%, rgba(125, 211, 252, 0.6) 0%, transparent 45%),
+                        radial-gradient(circle at 85% 75%, rgba(2, 132, 199, 0.55) 0%, transparent 50%),
+                        radial-gradient(circle at 50% 50%, rgba(240, 249, 255, 0.8) 0%, transparent 65%),
+                        linear-gradient(-45deg, #013a63, #014f86, #0284c7, #38bdf8, #e0f2fe, #ffffff);
+            background-size: 500% 500%;
+            animation: gradientShift 14s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating background orbs / aurora lights */
+        .aurora-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            pointer-events: none;
+            opacity: 0.85;
+            animation: floatOrb 10s ease-in-out infinite alternate;
+        }
+
+        @keyframes floatOrb {
+            0% { transform: translateY(0px) translateX(0px) scale(1); }
+            50% { transform: translateY(-50px) translateX(40px) scale(1.2); }
+            100% { transform: translateY(40px) translateX(-50px) scale(1.35); }
+        }
+
+        /* Highly Visible, Bright White & Glowing Floating Particles optimized for touchscreens */
+        .particle {
+            position: absolute;
+            background: radial-gradient(circle, #ffffff 0%, rgba(255,255,255,0.95) 40%, rgba(125,211,252,0.8) 70%, transparent 100%);
+            border-radius: 50%;
+            pointer-events: none;
+            box-shadow: 0 0 25px rgba(255, 255, 255, 1), 0 0 45px rgba(56, 189, 248, 0.9);
+            animation: floatUp 7s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(105vh) scale(0.6) rotate(0deg); opacity: 0; }
+            15% { opacity: 1; }
+            85% { opacity: 1; }
+            100% { transform: translateY(-15vh) scale(2.2) rotate(360deg); opacity: 0; }
+        }
+
+        /* Interactive mouse/touch tracking glow cursor */
+        #cursor-glow {
+            position: fixed;
+            width: 280px;
+            height: 280px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 0%, rgba(56, 189, 248, 0.3) 45%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height: 0.3s;
+            z-index: 40 !important;
+            mix-blend-mode: soft-light;
+        }
+
+        /* Interactive touch/click ripple element */
+        .ripple {
+            position: absolute;
+            border: 3px solid rgba(255, 255, 255, 0.95);
+            background: radial-gradient(circle, rgba(255,255,255,0.6) 0%, transparent 80%);
+            border-radius: 50%;
+            transform: scale(0);
+            animation: rippleEffect 0.7s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        @keyframes rippleEffect {
+            to {
+                transform: scale(5);
+                opacity: 0;
+            }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.95);
+            box-shadow: 0 25px 50px rgba(2, 132, 199, 0.22);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+        }
+
+        .glass-card:active, .glass-card:hover {
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: 0 35px 70px rgba(2, 132, 199, 0.38);
+            background: rgba(255, 255, 255, 0.96);
+        }
+
+        .glass-dark {
+            background: rgba(3, 105, 161, 0.94);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 25px 50px rgba(3, 105, 161, 0.4);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(1deg); }
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* Shimmering SVG Icon Glow */
+        .icon-glow {
+            filter: drop-shadow(0 0 16px rgba(56, 189, 248, 0.9));
+            transition: transform 0.3s ease;
+        }
+        .glass-card:hover .icon-glow {
+            transform: scale(1.1) rotate(5deg);
+        }
+    </style>
+</head>
+<body class="live-bg text-slate-800 font-sans antialiased overflow-x-hidden selection:bg-sky-500 selection:text-white relative touch-manipulation">
+
+    <!-- Interactive Mouse/Touch Spotlight Glow -->
+    <div id="cursor-glow"></div>
+
+    <!-- Live Animated Aurora Orbs & High Visibility White Floating Particles -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="aurora-orb w-[32rem] h-[32rem] bg-sky-200 top-5 left-5" style="animation-delay: 0s; animation-duration: 9s;"></div>
+        <div class="aurora-orb w-[28rem] h-[28rem] bg-white top-1/3 right-10" style="animation-delay: 2s; animation-duration: 11s;"></div>
+        <div class="aurora-orb w-[35rem] h-[35rem] bg-sky-300 bottom-10 left-1/4" style="animation-delay: 1.5s; animation-duration: 13s;"></div>
+        <div class="aurora-orb w-[24rem] h-[24rem] bg-blue-200 bottom-1/4 right-1/4" style="animation-delay: 4s; animation-duration: 10s;"></div>
+
+        <!-- High-Visibility Glowing White & Light Blue Particles for Android / Mobile & Desktop -->
+        <div class="particle" style="width: 18px; height: 18px; left: 8%; animation-delay: 0s; animation-duration: 5s;"></div>
+        <div class="particle" style="width: 24px; height: 24px; left: 20%; animation-delay: 1.5s; animation-duration: 6.5s;"></div>
+        <div class="particle" style="width: 15px; height: 15px; left: 35%; animation-delay: 0.8s; animation-duration: 5.5s;"></div>
+        <div class="particle" style="width: 22px; height: 22px; left: 50%; animation-delay: 2.2s; animation-duration: 7s;"></div>
+        <div class="particle" style="width: 28px; height: 28px; left: 65%; animation-delay: 0.3s; animation-duration: 6s;"></div>
+        <div class="particle" style="width: 16px; height: 16px; left: 80%; animation-delay: 1.8s; animation-duration: 5.8s;"></div>
+        <div class="particle" style="width: 20px; height: 20px; left: 92%; animation-delay: 2.5s; animation-duration: 6.2s;"></div>
+    </div>
+
+    <!-- Custom Notification Modal -->
+    <div id="notificationModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm hidden transition-all duration-300">
+        <div class="glass-dark rounded-3xl p-8 max-w-md w-full mx-4 shadow-2xl text-center transform scale-95 transition-transform duration-300 text-white" id="modalContent">
+            <div id="modalIcon" class="w-16 h-16 bg-white/20 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl shadow-inner">
+                <i class="fa-solid fa-heart"></i>
+            </div>
+            <h3 id="modalTitle" class="text-2xl font-serif font-bold mb-2">Notice</h3>
+            <p id="modalMessage" class="text-sky-100 text-sm mb-6 leading-relaxed">Message goes here...</p>
+            <button onclick="closeModal()" class="w-full py-3 bg-white text-sky-900 font-bold rounded-2xl shadow-lg hover:bg-sky-50 transition-all transform active:scale-95">
+                Close
+            </button>
+        </div>
+    </div>
+
+    <!-- Header / Hero Section -->
+    <header class="relative min-h-screen flex items-center justify-center px-4 py-20 z-10">
+        <div class="relative z-10 max-w-4xl mx-auto text-center space-y-8">
+            
+            <!-- Custom SVG Flower & Dove Badge -->
+            <div class="inline-flex items-center gap-3 px-6 py-3 rounded-full glass-card text-sky-900 text-sm tracking-wider uppercase font-semibold animate-float shadow-xl border border-white">
+                <svg class="w-6 h-6 text-sky-600 icon-glow" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                </svg>
+                <span>Two Blessings • One Beautiful Day • Kallooppara</span>
+            </div>
+
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif font-bold tracking-tight text-slate-900 leading-tight drop-shadow-sm">
+                Two Blessings, <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-700 via-blue-600 to-indigo-800 font-script text-6xl md:text-8xl">One Beautiful Day</span>
+            </h1>
+
+            <p class="text-lg md:text-xl text-slate-700 max-w-2xl mx-auto leading-relaxed font-light">
+                With grateful hearts, we warmly invite you to share in two joyous milestones — our new home housewarming and the Holy Baptism of our beloved son.
+            </p>
+
+            <!-- Countdown Timer -->
+            <div class="grid grid-cols-4 gap-3 max-w-md mx-auto pt-2">
+                <div class="glass-card p-3 rounded-2xl text-center border border-white/80 shadow-lg">
+                    <span id="days" class="text-2xl md:text-3xl font-bold text-sky-800 block">00</span>
+                    <span class="text-xs text-sky-600 uppercase tracking-widest font-semibold">Days</span>
+                </div>
+                <div class="glass-card p-3 rounded-2xl text-center border border-white/80 shadow-lg">
+                    <span id="hours" class="text-2xl md:text-3xl font-bold text-sky-800 block">00</span>
+                    <span class="text-xs text-sky-600 uppercase tracking-widest font-semibold">Hours</span>
+                </div>
+                <div class="glass-card p-3 rounded-2xl text-center border border-white/80 shadow-lg">
+                    <span id="minutes" class="text-2xl md:text-3xl font-bold text-sky-800 block">00</span>
+                    <span class="text-xs text-sky-600 uppercase tracking-widest font-semibold">Min</span>
+                </div>
+                <div class="glass-card p-3 rounded-2xl text-center border border-white/80 shadow-lg">
+                    <span id="seconds" class="text-2xl md:text-3xl font-bold text-sky-800 block">00</span>
+                    <span class="text-xs text-sky-600 uppercase tracking-widest font-semibold">Sec</span>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+                <a href="#events" class="w-full sm:w-auto px-8 py-4 bg-sky-700 hover:bg-sky-800 text-white font-semibold rounded-2xl shadow-xl shadow-sky-600/30 transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-calendar-check"></i> View Celebration Details
+                </a>
+                <button onclick="triggerConfetti()" class="w-full sm:w-auto px-8 py-4 glass-card hover:bg-white text-sky-800 font-semibold rounded-2xl border border-white shadow-lg transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-dove"></i> Send Blessings
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Celebration Events Showcase Cards -->
+    <section id="events" class="py-24 px-4 max-w-6xl mx-auto relative z-10">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+            <span class="text-sky-700 font-semibold tracking-widest uppercase text-sm bg-white/70 px-4 py-1.5 rounded-full shadow-sm">Milestone Events</span>
+            <h2 class="text-3xl md:text-5xl font-serif font-bold text-slate-900 mt-3 mb-4">Celebration Schedule</h2>
+            <p class="text-slate-600">Join us as we consecrate our new home with prayer and baptize our precious little one.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Housewarming Card -->
+            <div class="glass-card rounded-3xl p-8 relative overflow-hidden group hover:shadow-2xl transition-all duration-300 border border-white/90">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-sky-200/40 rounded-full blur-2xl group-hover:bg-sky-300/60 transition-all"></div>
+                <div class="w-14 h-14 bg-sky-100 text-sky-700 rounded-2xl flex items-center justify-center text-2xl mb-6 shadow-md icon-glow">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                </div>
+                <span class="text-xs font-semibold uppercase tracking-wider text-sky-700 bg-sky-100 px-3 py-1 rounded-full">Ceremony I</span>
+                <h3 class="text-3xl font-serif font-bold text-slate-900 mt-4 mb-3">Housewarming Celebration</h3>
+                <p class="text-slate-600 text-sm mb-6 leading-relaxed">
+                    We are blessed to step into our new dwelling. Join us for the housewarming prayer and celebration filled with warmth, joy, and fellowship.
+                </p>
+                <ul class="space-y-3 text-sm text-slate-700 mb-8 border-t border-sky-100 pt-6">
+                    <li class="flex items-center gap-3">
+                        <i class="fa-regular fa-calendar text-sky-600 w-5"></i>
+                        <span class="font-medium">Thursday, November 26, 2026</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <i class="fa-regular fa-clock text-sky-600 w-5"></i>
+                        <span class="font-medium">10:00 AM Onwards</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <i class="fa-solid fa-location-dot text-sky-600 w-5"></i>
+                        <span class="font-medium">Kallooppara, Thiruvalla, Pathanamthitta</span>
+                    </li>
+                </ul>
+                <div class="rounded-2xl overflow-hidden h-52 shadow-inner border border-white relative">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent z-10"></div>
+                    <img src="images\h.jpg" alt="Modern Dream House" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <span class="absolute bottom-3 left-3 z-20 text-white font-medium text-xs bg-slate-900/60 backdrop-blur-md px-3 py-1 rounded-full">New Home • Kallooppara</span>
+                </div>
+            </div>
+
+            <!-- Baptism Card -->
+            <div class="glass-card rounded-3xl p-8 relative overflow-hidden group hover:shadow-2xl transition-all duration-300 border border-white/90">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-blue-200/40 rounded-full blur-2xl group-hover:bg-blue-300/60 transition-all"></div>
+                <div class="w-14 h-14 bg-blue-100 text-blue-700 rounded-2xl flex items-center justify-center text-xl mb-6 shadow-md icon-glow">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                </div>
+                <span class="text-xs font-semibold uppercase tracking-wider text-blue-700 bg-blue-100 px-3 py-1 rounded-full">Ceremony II</span>
+                <h3 class="text-3xl font-serif font-bold text-slate-900 mt-4 mb-3">Holy Baptism of Behanan Tiju</h3>
+                <p class="text-slate-600 text-sm mb-6 leading-relaxed">
+                    With joyous hearts, we present our beloved son Behanan Tiju for holy baptism. Your prayers and presence will make this spiritual milestone truly memorable.
+                </p>
+                <ul class="space-y-3 text-sm text-slate-700 mb-8 border-t border-sky-100 pt-6">
+                    <li class="flex items-center gap-3">
+                        <i class="fa-regular fa-calendar text-blue-600 w-5"></i>
+                        <span class="font-medium">Thursday, November 26, 2026</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <i class="fa-regular fa-clock text-blue-600 w-5"></i>
+                        <span class="font-medium">06:30 AM</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <i class="fa-solid fa-church text-blue-600 w-5"></i>
+                        <span class="font-medium">St. Mary's Orthodox Valiyapalli, Kallooppara</span>
+                    </li>
+                </ul>
+                <div class="rounded-2xl overflow-hidden h-52 shadow-inner border border-white relative">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent z-10"></div>
+                    <img src="https://kalloopparapally.com/new_images/about/contact.jpg" alt="St. Mary's Orthodox Valiyapalli Kallooppara" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/600x400/e0f2fe/0284c7?text=St.+Mary%27s+Church';">
+                    <span class="absolute bottom-3 left-3 z-20 text-white font-medium text-xs bg-slate-900/60 backdrop-blur-md px-3 py-1 rounded-full">St. Mary's Orthodox Valiyapalli</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Meet Behanan Section -->
+    <section class="py-20 px-4 bg-white/40 backdrop-blur-md border-y border-white/60 relative z-10">
+        <div class="max-w-4xl mx-auto text-center space-y-6">
+            <span class="text-sky-700 text-sm tracking-widest uppercase font-semibold">Our Little Blessing</span>
+            <h2 class="text-4xl md:text-5xl font-serif font-bold text-slate-900">Behanan Tiju</h2>
+            <p class="text-slate-700 max-w-xl mx-auto leading-relaxed">
+                "Children are a heritage from the Lord, the fruit of the womb a reward." We thank God for blessing our family with endless joy and laughter.
+            </p>
+            <div class="flex justify-center pt-4">
+                <div class="w-40 h-40 rounded-full overflow-hidden border-4 border-white shadow-2xl animate-float relative">
+                    <div class="absolute inset-0 bg-sky-900/15"></div>
+                    <img src="images\tj.jpeg" alt="Baby Behanan" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Venue & Location Details -->
+    <section class="py-24 px-4 max-w-6xl mx-auto relative z-10">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+            <span class="text-sky-700 font-semibold tracking-widest uppercase text-sm bg-white/60 px-4 py-1.5 rounded-full shadow-sm">Navigation</span>
+            <h2 class="text-3xl md:text-5xl font-serif font-bold text-slate-900 mt-3 mb-4">Venue & Directions</h2>
+            <p class="text-slate-600">We look forward to welcoming you to Kallooppara, Thiruvalla, Pathanamthitta.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="glass-card p-6 rounded-3xl flex flex-col justify-between border border-white shadow-xl">
+                <div>
+                    <div class="w-12 h-12 bg-sky-100 text-sky-700 rounded-2xl flex items-center justify-center text-xl mb-4 shadow-sm">
+                        <i class="fa-solid fa-map-location-dot"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">Location Address</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                        Kallooppara, Thiruvalla<br>Pathanamthitta District<br>Kerala, India
+                    </p>
+                </div>
+                <button onclick="openDirections()" class="w-full py-3 bg-sky-600 hover:bg-sky-700 text-white rounded-2xl font-medium shadow-md transition-all">
+                    <i class="fa-solid fa-diamond-turn-right mr-2"></i> Open in Google Maps
+                </button>
+            </div>
+
+            <div class="glass-card p-6 rounded-3xl flex flex-col justify-between border border-white shadow-xl">
+                <div>
+                    <div class="w-12 h-12 bg-blue-100 text-blue-700 rounded-2xl flex items-center justify-center text-xl mb-4 shadow-sm">
+                        <i class="fa-solid fa-church"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">Baptism Church</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                        St. Mary's Orthodox Valiyapalli<br>Kallooppara<br>Time: 06:30 AM
+                    </p>
+                </div>
+                <button onclick="triggerConfetti()" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-medium shadow-md transition-all">
+                    <i class="fa-solid fa-hands-praying mr-2"></i> Celebrate with Us
+                </button>
+            </div>
+
+            <div class="glass-card p-6 rounded-3xl flex flex-col justify-between border border-white shadow-xl">
+                <div>
+                    <div class="w-12 h-12 bg-emerald-100 text-emerald-700 rounded-2xl flex items-center justify-center text-xl mb-4 shadow-sm">
+                        <i class="fa-solid fa-phone-volume"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">Family Contacts</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                        For any assistance regarding directions or accommodation:
+                    </p>
+                </div>
+                <a href="tel:" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-2xl font-medium text-center shadow-md transition-all block">
+                    <i class="fa-solid fa-phone mr-2"></i> Call Family
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-4 text-center border-t border-sky-200/50 bg-white/70 backdrop-blur-md relative z-10 text-slate-600 text-sm">
+        <p class="font-serif text-sky-900 text-xl mb-2 font-semibold">Looking forward to celebrating with you!</p>
+        <p>© 2026 Behanan's Double Celebration • Kallooppara, Thiruvalla</p>
+    </footer>
+
+    <!-- JavaScript for Interactivity and Animations -->
+    <script>
+        // Interactive Mouse & Touch Tracking Glow Spotlight
+        const cursorGlow = document.getElementById('cursor-glow');
+        let mouseX = window.innerWidth / 2;
+        let mouseY = window.innerHeight / 2;
+        let cursorX = mouseX;
+        let cursorY = mouseY;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        // Touch support for Android and mobile screens
+        document.addEventListener('touchmove', (e) => {
+            if (e.touches.length > 0) {
+                mouseX = e.touches[0].clientX;
+                mouseY = e.touches[0].clientY;
+            }
+        }, { passive: true });
+
+        document.addEventListener('touchstart', (e) => {
+            if (e.touches.length > 0) {
+                mouseX = e.touches[0].clientX;
+                mouseY = e.touches[0].clientY;
+            }
+        }, { passive: true });
+
+        function renderCursor() {
+            cursorX += (mouseX - cursorX) * 0.15;
+            cursorY += (mouseY - cursorY) * 0.15;
+            cursorGlow.style.left = `${cursorX}px`;
+            cursorGlow.style.top = `${cursorY}px`;
+            requestAnimationFrame(renderCursor);
+        }
+        requestAnimationFrame(renderCursor);
+
+        // Interactive Click & Touch Ripple Effect on Body
+        function createRipple(clientX, clientY) {
+            const ripple = document.createElement('div');
+            ripple.className = 'ripple';
+            ripple.style.left = `${clientX - 35}px`;
+            ripple.style.top = `${clientY - 35}px`;
+            ripple.style.width = '70px';
+            ripple.style.height = '70px';
+            document.body.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 700);
+        }
+
+        document.addEventListener('click', function(e) {
+            createRipple(e.clientX, e.clientY);
+        });
+
+        document.addEventListener('touchstart', function(e) {
+            if (e.touches.length > 0) {
+                createRipple(e.touches[0].clientX, e.touches[0].clientY);
+            }
+        }, { passive: true });
+
+        // Countdown Timer Logic targeting November 26, 2026 10:00:00
+        const eventDate = new Date("November 26, 2026 10:00:00").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = eventDate - now;
+
+            if (distance < 0) {
+                document.getElementById("days").innerText = "00";
+                document.getElementById("hours").innerText = "00";
+                document.getElementById("minutes").innerText = "00";
+                document.getElementById("seconds").innerText = "00";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = String(days).padStart(2, '0');
+            document.getElementById("hours").innerText = String(hours).padStart(2, '0');
+            document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
+            document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Confetti effect trigger
+        function triggerConfetti() {
+            confetti({
+                particleCount: 120,
+                spread: 80,
+                origin: { y: 0.6 }
+            });
+        }
+
+        // Custom Modal Control
+        function showModal(title, message, iconClass = "fa-solid fa-heart") {
+            document.getElementById("modalTitle").innerText = title;
+            document.getElementById("modalMessage").innerText = message;
+            document.getElementById("modalIcon").innerHTML = `<i class="${iconClass}"></i>`;
+            
+            const modal = document.getElementById("notificationModal");
+            modal.classList.remove("hidden");
+            setTimeout(() => {
+                modal.querySelector("#modalContent").classList.remove("scale-95");
+                modal.querySelector("#modalContent").classList.add("scale-100");
+            }, 10);
+            
+            triggerConfetti();
+        }
+
+        function closeModal() {
+            const modal = document.getElementById("notificationModal");
+            modal.querySelector("#modalContent").classList.remove("scale-100");
+            modal.querySelector("#modalContent").classList.add("scale-95");
+            setTimeout(() => {
+                modal.classList.add("hidden");
+            }, 200);
+        }
+
+        // Google Maps Directions redirect
+        function openDirections() {
+            window.open("https://maps.app.goo.gl/nQ6iC4mECW6cfN9r9", "_blank");
+        }
+    </script>
+</body>
+</html>
